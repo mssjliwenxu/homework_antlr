@@ -15,5 +15,6 @@ public class HelloRunner
 		HelloParser parser = new HelloParser(tokens);
 		ParseTree tree = parser.r(); // begin parsing at rule 'r'
 		System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+		
 	}
 }
