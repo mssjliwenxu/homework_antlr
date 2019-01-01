@@ -1,11 +1,10 @@
 parser grammar MATLABParser;
-
 options { tokenVocab=MATLABLexer;}
 
 fileDecl  
     : (functionDecl | classDecl)? (functionDecl* | partialFunctionDecl*)
     | partialFunctionDecl+
-    | statBlock+ // Script
+    | statement+ // 语句定义
     | EOF
     ;
 
@@ -19,7 +18,7 @@ endStatNL
 
 // Function declaration without the closing end
 partialFunctionDecl
-    : FUNCTION outArgs? ID inArgs? endStat statBlock* 
+    : FUNCTION outArgs? ID inArgs? endStat statement* 
     ; 
 
 // Normal function declaration including closing end
@@ -64,25 +63,25 @@ dotRef
     : ID (DOT ID)*
     ;
 
-statBlock
+statement
     : (stat endStat)
     ;
 
 ifStat
-    : IF expr endStat statBlock* 
-      (ELSEIF expr endStat statBlock*)* 
-      (ELSE endStat? statBlock*)?
+    : IF expr endStat statement* 
+      (ELSEIF expr endStat statement*)* 
+      (ELSE endStat? statement*)?
       END
     ;
 
 whileStat
-    : WHILE expr endStat statBlock* END
+    : WHILE expr endStat statement* END
     ;
 
 caseStat
     : SWITCH expr endStat 
-      (CASE expr endStat statBlock*)*
-      (OTHERWISE endStat statBlock*)?
+      (CASE expr endStat statement*)*
+      (OTHERWISE endStat statement*)?
       END
     ;
 

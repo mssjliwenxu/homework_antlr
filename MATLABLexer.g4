@@ -1,6 +1,6 @@
 lexer grammar MATLABLexer;
 
-// Keywords
+// 关键字
 FUNCTION : 'function' ;
 
 CLASSDEF : 'classdef' ;
@@ -19,13 +19,15 @@ ELSE : 'else' ;
 
 WHILE : 'while' ;
 
+FOR :  'for' ;
+
 SWITCH : 'switch' ;
 
 CASE : 'case' ; 
 
 OTHERWISE : 'otherwise' ;
 
-// Symbols
+// 运算符
 EQUALS : '=' ;
 
 EQUALTO : '==' ;
@@ -72,11 +74,11 @@ RDIVIDE : '/' ;
 
 LDIVIDE : '\\' ;
 
-MRDIVIDE : './' ;
+MRDIVIDE : './' ;    //数组右除
 
-MLDIVIDE : '.\\' ;
+MLDIVIDE : '.\\' ;     //数组左除
 
-POW : '.^' ;
+POW : '.^' ;         //数组幂运算
 
 MPOW : '^' ;
 
@@ -91,12 +93,9 @@ CTRANS : '\'' ;
 // General rules
 NL  : '\r'?'\n' ;
 
-fragment
-LINECONTINUE
-    : '...' ;
-
 COMMENT
-    : ('%' | LINECONTINUE) .*? NL -> skip ;
+    : '%'.*? NL -> skip ;
+BLOCKCOMMENT	: '%{' .*?  '%}' -> channel(HIDDEN);
 
 fragment
 LETTER  : [a-zA-Z] ; 
@@ -105,16 +104,16 @@ DIGIT   : [0-9] ;
 fragment
 ESC : '\'\'' ;
 
-INT : DIGIT+;
+INT : DIGIT+;                //普通int
 
 FLOAT : DIGIT+ '.' DIGIT*
       | '.' DIGIT+
-      ;
+      ;                      //普通浮点数
 
-SCI : (INT|FLOAT) 'e' INT ;
+SCI : (INT|FLOAT) ('e'|'E') ('+'|'-')? INT ;  //科学计数法
+STRING : '\'' (ESC|.)*? '\'' ;   //字符串
 
-ID  : LETTER (LETTER|DIGIT|'_')* ;
-STRING : '\'' (ESC|.)*? '\'' ;
+ID  : LETTER (LETTER|DIGIT|'_')* ;//只能以字母开头的 字母数字下划线的
 
 RBRACK : ']' ;
 RBRACE : '}' ;

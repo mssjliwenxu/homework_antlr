@@ -8,12 +8,12 @@ public class HelloRunner
 	{
 		ANTLRInputStream input = new ANTLRInputStream( System.in);
 
-		HelloLexer lexer = new HelloLexer(input);
+		MATLABLexer lexer =new MATLABLexer(input);
 
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-		HelloParser parser = new HelloParser(tokens);
-		ParseTree tree = parser.r(); // begin parsing at rule 'r'
+		MATLABParser parser = new MATLABParser(tokens);
+		ParseTree tree = parser.classDecl(); // begin parsing at rule 'r'
 		System.out.println(tree.toStringTree(parser)); // print LISP-style tree
 		
 	}

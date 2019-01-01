@@ -6,3 +6,8 @@
 /MATLABParser.tokens
 /MATLABParserBaseListener.java
 /MATLABParserListener.java
+/Hello.tokens
+/HelloBaseListener.java
+/HelloListener.java
+/HelloParser.java
+/HelloLexer.tokens
