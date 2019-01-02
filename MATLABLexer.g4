@@ -27,9 +27,7 @@ CASE : 'case' ;
 
 OTHERWISE : 'otherwise' ;
 
-// 运算符
-EQUALS : '=' ;
-
+// 关系运算
 EQUALTO : '==' ;
 
 GT : '>' ;
@@ -40,11 +38,35 @@ GE : '>=' ;
 
 LE : '<=' ;
 
+//算术运算符
+EQUALS : '=' ;
+
 PLUS : '+' ;
 
 MINUS : '-' ;
 
-DOT : '.' ;
+MTIMES : '*' ;     //矩阵乘
+
+TIMES : '.*' ;       //按元素乘
+
+LDIVIDE : '\\' ;      //矩阵左除
+
+MLDIVIDE : '.\\' ;     //数组左除
+
+RDIVIDE : '/' ;      //矩阵右除
+
+MRDIVIDE : './' ;    //右除
+
+POW : '.^' ;         //按元素求幂运算
+
+MPOW : '^';      //矩阵幂
+
+TRANS : '.\'' ; //矩阵转置
+
+CTRANS : '\'' ; //副共轭转置
+
+//逻辑运算符
+NOT : '~' ;
 
 VECAND : '&' ;
 
@@ -53,6 +75,11 @@ VECOR : '|' ;
 SCALAND : '&&' ;
 
 SCALOR : '||' ;
+
+
+
+//其他运算符
+DOT : '.' ;
 
 LPAREN : '(' ;
 
@@ -66,32 +93,13 @@ LBRACK : '[' ;
 
 // RBRACK : ']' ;
 
-MTIMES : '*' ;
-
-TIMES : '.*' ;
-
-RDIVIDE : '/' ;
-
-LDIVIDE : '\\' ;
-
-MRDIVIDE : './' ;    //数组右除
-
-MLDIVIDE : '.\\' ;     //数组左除
-
-POW : '.^' ;         //数组幂运算
-
-MPOW : '^' ;
-
-NOT : '~' ;
-
 COLON : ':' ;
 
-TRANS : '.\'' ;
-
-CTRANS : '\'' ;
-
-// General rules
 NL  : '\r'?'\n' ;
+
+COMMA : ',' ;
+
+SEMI  : ';' ;
 
 COMMENT
     : '%'.*? NL -> skip ;
@@ -124,9 +132,6 @@ RBRACE : '}' ;
 
 // ARRAYELSEP : (HCAT| VCAT ) ; // SPACE+ ;
 
-COMMA : ',' ;
-
-SEMI  : ';' ;
 
 WS  : SPACE+ -> skip ;
 

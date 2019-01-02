@@ -13,8 +13,8 @@ public class HelloRunner
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
 		MATLABParser parser = new MATLABParser(tokens);
-		ParseTree tree = parser.classDecl(); // begin parsing at rule 'r'
+		ParseTree tree = parser.fileDecl();
 		System.out.println(tree.toStringTree(parser)); // print LISP-style tree
-		
+	
 	}
 }

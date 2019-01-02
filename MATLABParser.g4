@@ -3,27 +3,24 @@ options { tokenVocab=MATLABLexer;}
 
 fileDecl  
     : (functionDecl | classDecl)? (functionDecl* | partialFunctionDecl*)
-    | partialFunctionDecl+
-    | statement+ // 语句定义
+    | partialFunctionDecl+   
+    | statement+ // 普通语句
     | EOF
     ;
 
-endStat
+endStat//语句的结束
     : (NL|COMMA|SEMI) NL*
     ;
 
-endStatNL 
-    : NL+
-    ;
 
-// Function declaration without the closing end
+// 不含end的函数
 partialFunctionDecl
     : FUNCTION outArgs? ID inArgs? endStat statement* 
     ; 
 
-// Normal function declaration including closing end
+// 普通函数定义=部分函数加end
 functionDecl
-    : partialFunctionDecl END endStatNL NL*
+    : partialFunctionDecl END NL+ 
     ;
 
 // Functions inside method blocks can be comma or semi separated 
@@ -59,9 +56,7 @@ prop
     : ID (EQUALS expr)? endStat
     ;
 
-dotRef
-    : ID (DOT ID)*
-    ;
+
 
 statement
     : (stat endStat)
@@ -86,7 +81,7 @@ caseStat
     ;
 
 stat
-    : dotRef EQUALS expr
+    : ID EQUALS expr
     | ifStat
     | whileStat
     | caseStat
@@ -117,7 +112,7 @@ expr
     | expr VECOR expr
     | expr SCALAND expr
     | expr SCALOR expr
-    | dotRef
+    | ID
     | INT | FLOAT | SCI  
     | STRING
     | arrayExpr
