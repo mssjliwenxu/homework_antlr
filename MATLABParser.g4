@@ -90,13 +90,11 @@ stat
     ;
 
 arrayExpr
-    : LBRACK exprArrayList RBRACK
-    | LBRACK RBRACK
+    : LBRACK matrix? RBRACK
     ;
 
 cellExpr
-    : LBRACE exprArrayList RBRACE
-    | LBRACE RBRACE
+    : LBRACE matrix? RBRACE
     ;
 
 expr
@@ -124,7 +122,13 @@ exprList
     : expr (',' expr)*
     ;
 
-exprArrayList
+exprArrayList //原工程数组
     : expr (COMMA? exprArrayList)*    #hcat
     | expr ((SEMI|NL) exprArrayList)* #vcat
     ;
+row 
+	: expr (COMMA? expr)*
+	;
+matrix
+	: row((SEMI|NL) row)*
+	;
